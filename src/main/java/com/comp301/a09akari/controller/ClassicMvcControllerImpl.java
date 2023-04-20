@@ -27,12 +27,12 @@ public class ClassicMvcControllerImpl implements ClassicMvcController {
 
   @Override
   public void clickRandPuzzle() {
-    int randomInt = model.getActivePuzzleIndex();
-    Random r = new Random();
-    while (randomInt == model.getActivePuzzleIndex() && model.getPuzzleLibrarySize() != 1) {
-      randomInt = r.nextInt(0, model.getPuzzleLibrarySize());
-    }
-    model.setActivePuzzleIndex(randomInt);
+//    int randomInt = model.getActivePuzzleIndex();
+//    Random r = new Random();
+//    while (randomInt == model.getActivePuzzleIndex() && model.getPuzzleLibrarySize() != 1) {
+//      randomInt = r.nextInt(0, model.getPuzzleLibrarySize());
+//    }
+//    model.setActivePuzzleIndex(randomInt);
   }
 
   @Override

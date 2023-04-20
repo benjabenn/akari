@@ -46,7 +46,7 @@ public class ModelImpl implements Model {
     int rowIndex = r;
     int colIndex = c;
     CellType currentCellType;
-    while (rowIndex > 0) {
+    while (rowIndex >= 0) {
       currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
       if (currentCellType == CellType.CORRIDOR) {
         if (isLamp(rowIndex, colIndex)) {
@@ -74,7 +74,7 @@ public class ModelImpl implements Model {
     }
     rowIndex = r;
     colIndex = c - 1;
-    while (colIndex > 0) {
+    while (colIndex >= 0) {
       currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
       if (currentCellType == CellType.CORRIDOR) {
         if (isLamp(rowIndex, colIndex)) {
@@ -220,26 +220,26 @@ public class ModelImpl implements Model {
     int num_lamps = 0;
     int rowIndex = r - 1;
     int colIndex = c;
-    if (rowIndex > 0) {
+    if (rowIndex >= 0) {
       if (isLamp(rowIndex, colIndex)) {
         num_lamps++;
       }
     }
     rowIndex = r + 1;
-    if (rowIndex < getActivePuzzle().getHeight() - 1) {
+    if (rowIndex < getActivePuzzle().getHeight()) {
       if (isLamp(rowIndex, colIndex)) {
         num_lamps++;
       }
     }
     rowIndex = r;
     colIndex = c - 1;
-    if (colIndex > 0) {
+    if (colIndex >= 0) {
       if (isLamp(rowIndex, colIndex)) {
         num_lamps++;
       }
     }
     colIndex = c + 1;
-    if (colIndex < getActivePuzzle().getWidth() - 1) {
+    if (colIndex < getActivePuzzle().getWidth()) {
       if (isLamp(rowIndex, colIndex)) {
         num_lamps++;
       }

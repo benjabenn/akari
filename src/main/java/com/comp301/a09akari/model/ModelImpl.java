@@ -138,7 +138,6 @@ public class ModelImpl implements Model {
       throw new IndexOutOfBoundsException();
     }
     puzzleIndex = index;
-    notify(this);
   }
 
   @Override

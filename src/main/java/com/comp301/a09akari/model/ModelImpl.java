@@ -1,16 +1,15 @@
 package com.comp301.a09akari.model;
 
-import javafx.scene.control.Cell;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModelImpl implements Model {
-  private PuzzleLibrary puzzleLibrary;
+  private final PuzzleLibrary puzzleLibrary;
   private int puzzleIndex;
-  private List<Pair<Integer, Integer>> lampLocations;
-  private List<ModelObserver> modelObservers;
+  private final List<Pair<Integer, Integer>> lampLocations;
+  private final List<ModelObserver> modelObservers;
 
   public ModelImpl(PuzzleLibrary library) {
     this.puzzleLibrary = library;
@@ -26,6 +25,7 @@ public class ModelImpl implements Model {
     else if (!lampLocations.contains(new Pair<>(r, c))) {
       lampLocations.add(new Pair<>(r, c));
     }
+    notify(this);
   }
 
   @Override
@@ -34,6 +34,7 @@ public class ModelImpl implements Model {
       throw new IllegalArgumentException();
     }
     lampLocations.remove(new Pair<>(r, c));
+    notify(this);
   }
 
   @Override
@@ -137,6 +138,7 @@ public class ModelImpl implements Model {
       throw new IndexOutOfBoundsException();
     }
     puzzleIndex = index;
+    notify(this);
   }
 
   @Override
@@ -147,6 +149,7 @@ public class ModelImpl implements Model {
   @Override
   public void resetPuzzle() {
     lampLocations.clear();
+    notify(this);
   }
 
   @Override
@@ -218,5 +221,11 @@ public class ModelImpl implements Model {
   @Override
   public void removeObserver(ModelObserver observer) {
     modelObservers.remove(observer);
+  }
+
+  private void notify(Model model) {
+    for (ModelObserver modelObserver : modelObservers) {
+      modelObserver.update(model);
+    }
   }
 }

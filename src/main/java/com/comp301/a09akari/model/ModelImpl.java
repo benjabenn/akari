@@ -60,7 +60,7 @@ public class ModelImpl implements Model {
     }
     // Now we set rowIndex to r+1 and go up
     rowIndex = r + 1;
-    while (rowIndex < getActivePuzzle().getHeight() - 1) {
+    while (rowIndex < getActivePuzzle().getHeight()) {
       currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
       if (currentCellType == CellType.CORRIDOR) {
         if (isLamp(rowIndex, colIndex)) {
@@ -87,7 +87,7 @@ public class ModelImpl implements Model {
       colIndex--;
     }
     colIndex = c + 1;
-    while (colIndex < getActivePuzzle().getWidth() - 1) {
+    while (colIndex < getActivePuzzle().getWidth()) {
       currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
       if (currentCellType == CellType.CORRIDOR) {
         if (isLamp(rowIndex, colIndex)) {

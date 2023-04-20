@@ -17,12 +17,12 @@ public class ModelImpl implements Model {
     lampLocations = new ArrayList<>();
     modelObservers = new ArrayList<>();
   }
+
   @Override
   public void addLamp(int r, int c) {
     if (getActivePuzzle().getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
-    }
-    else if (!lampLocations.contains(new Pair<>(r, c))) {
+    } else if (!lampLocations.contains(new Pair<>(r, c))) {
       lampLocations.add(new Pair<>(r, c));
     }
     notify(this);
@@ -53,8 +53,7 @@ public class ModelImpl implements Model {
         if (isLamp(rowIndex, colIndex)) {
           return true;
         }
-      }
-      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+      } else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
         break;
       }
       rowIndex--;
@@ -67,8 +66,7 @@ public class ModelImpl implements Model {
         if (isLamp(rowIndex, colIndex)) {
           return true;
         }
-      }
-      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+      } else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
         break;
       }
       rowIndex++;
@@ -81,8 +79,7 @@ public class ModelImpl implements Model {
         if (isLamp(rowIndex, colIndex)) {
           return true;
         }
-      }
-      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+      } else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
         break;
       }
       colIndex--;
@@ -94,8 +91,7 @@ public class ModelImpl implements Model {
         if (isLamp(rowIndex, colIndex)) {
           return true;
         }
-      }
-      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+      } else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
         break;
       }
       colIndex++;
@@ -116,9 +112,9 @@ public class ModelImpl implements Model {
     if (!isLamp(r, c)) {
       throw new IllegalArgumentException();
     }
-    removeLamp(r, c);
+    lampLocations.remove(new Pair<>(r, c));
     boolean result = isLit(r, c);
-    addLamp(r, c);
+    lampLocations.add(new Pair<>(r, c));
     return result;
   }
 
@@ -166,8 +162,7 @@ public class ModelImpl implements Model {
               return false;
             }
           }
-        }
-        else if (currentCellType == CellType.CLUE) {
+        } else if (currentCellType == CellType.CLUE) {
           if (!isClueSatisfied(rowIndex, colIndex)) {
             return false;
           }

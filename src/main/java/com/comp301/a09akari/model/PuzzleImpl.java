@@ -6,6 +6,7 @@ public class PuzzleImpl implements Puzzle {
   public PuzzleImpl(int[][] board) {
     this.board = board;
   }
+
   @Override
   public int getWidth() {
     return board[0].length;
@@ -18,17 +19,15 @@ public class PuzzleImpl implements Puzzle {
 
   @Override
   public CellType getCellType(int r, int c) {
-    if (r >= getHeight() || r < 0 || c >= getWidth() || c < 0){
+    if (r >= getHeight() || r < 0 || c >= getWidth() || c < 0) {
       throw new IndexOutOfBoundsException();
     }
     int cellNum = board[r][c];
-    if (cellNum >=0 && cellNum <= 4) {
+    if (cellNum >= 0 && cellNum <= 4) {
       return CellType.CLUE;
-    }
-    else if (cellNum == 5) {
+    } else if (cellNum == 5) {
       return CellType.WALL;
-    }
-    else {
+    } else {
       return CellType.CORRIDOR;
     }
   }

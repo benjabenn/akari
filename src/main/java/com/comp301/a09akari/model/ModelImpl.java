@@ -58,7 +58,7 @@ public class ModelImpl implements Model {
       }
       rowIndex--;
     }
-    // Now we reset rowIndex to r and go up
+    // Now we set rowIndex to r+1 and go up
     rowIndex = r + 1;
     while (rowIndex < getActivePuzzle().getHeight() - 1) {
       currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
@@ -130,7 +130,7 @@ public class ModelImpl implements Model {
       }
       rowIndex--;
     }
-    // Now we reset rowIndex to r and go up
+    // Now we set rowIndex to r + 1 and go up
     rowIndex = r + 1;
     while (rowIndex < getActivePuzzle().getHeight() - 1) {
       currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
@@ -186,7 +186,7 @@ public class ModelImpl implements Model {
 
   @Override
   public void setActivePuzzleIndex(int index) {
-    if (index >= getPuzzleLibrarySize()) {
+    if (index >= getPuzzleLibrarySize() || index < 0) {
       throw new IndexOutOfBoundsException();
     }
     puzzleIndex = index;

@@ -34,7 +34,6 @@ public class ModelImpl implements Model {
       throw new IllegalArgumentException();
     }
     lampLocations.remove(new Pair<>(r, c));
-    notify(this);
   }
 
   @Override

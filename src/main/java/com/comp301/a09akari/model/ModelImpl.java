@@ -25,6 +25,7 @@ public class ModelImpl implements Model {
     else if (!lampLocations.contains(new Pair<>(r, c))) {
       lampLocations.add(new Pair<>(r, c));
     }
+    notify(this);
   }
 
   @Override
@@ -33,6 +34,7 @@ public class ModelImpl implements Model {
       throw new IllegalArgumentException();
     }
     lampLocations.remove(new Pair<>(r, c));
+    notify(this);
   }
 
   @Override
@@ -136,6 +138,7 @@ public class ModelImpl implements Model {
       throw new IndexOutOfBoundsException();
     }
     puzzleIndex = index;
+    notify(this);
   }
 
   @Override
@@ -146,6 +149,7 @@ public class ModelImpl implements Model {
   @Override
   public void resetPuzzle() {
     lampLocations.clear();
+    notify(this);
   }
 
   @Override

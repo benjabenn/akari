@@ -115,63 +115,67 @@ public class ModelImpl implements Model {
     if (!isLamp(r, c)) {
       throw new IllegalArgumentException();
     }
-    int rowIndex = r - 1;
-    int colIndex = c;
-    CellType currentCellType;
-    while (rowIndex > 0) {
-      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
-      if (currentCellType == CellType.CORRIDOR) {
-        if (isLamp(rowIndex, colIndex)) {
-          return true;
-        }
-      }
-      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
-        break;
-      }
-      rowIndex--;
-    }
-    // Now we set rowIndex to r + 1 and go up
-    rowIndex = r + 1;
-    while (rowIndex < getActivePuzzle().getHeight() - 1) {
-      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
-      if (currentCellType == CellType.CORRIDOR) {
-        if (isLamp(rowIndex, colIndex)) {
-          return true;
-        }
-      }
-      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
-        break;
-      }
-      rowIndex++;
-    }
-    rowIndex = r;
-    colIndex = c - 1;
-    while (colIndex > 0) {
-      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
-      if (currentCellType == CellType.CORRIDOR) {
-        if (isLamp(rowIndex, colIndex)) {
-          return true;
-        }
-      }
-      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
-        break;
-      }
-      colIndex--;
-    }
-    colIndex = c + 1;
-    while (colIndex < getActivePuzzle().getWidth() - 1) {
-      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
-      if (currentCellType == CellType.CORRIDOR) {
-        if (isLamp(rowIndex, colIndex)) {
-          return true;
-        }
-      }
-      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
-        break;
-      }
-      colIndex++;
-    }
-    return false;
+    removeLamp(r, c);
+    boolean result = isLit(r, c);
+    addLamp(r, c);
+    return result;
+//    int rowIndex = r - 1;
+//    int colIndex = c;
+//    CellType currentCellType;
+//    while (rowIndex > 0) {
+//      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+//      if (currentCellType == CellType.CORRIDOR) {
+//        if (isLamp(rowIndex, colIndex)) {
+//          return true;
+//        }
+//      }
+//      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+//        break;
+//      }
+//      rowIndex--;
+//    }
+//    // Now we set rowIndex to r + 1 and go up
+//    rowIndex = r + 1;
+//    while (rowIndex < getActivePuzzle().getHeight() - 1) {
+//      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+//      if (currentCellType == CellType.CORRIDOR) {
+//        if (isLamp(rowIndex, colIndex)) {
+//          return true;
+//        }
+//      }
+//      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+//        break;
+//      }
+//      rowIndex++;
+//    }
+//    rowIndex = r;
+//    colIndex = c - 1;
+//    while (colIndex > 0) {
+//      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+//      if (currentCellType == CellType.CORRIDOR) {
+//        if (isLamp(rowIndex, colIndex)) {
+//          return true;
+//        }
+//      }
+//      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+//        break;
+//      }
+//      colIndex--;
+//    }
+//    colIndex = c + 1;
+//    while (colIndex < getActivePuzzle().getWidth() - 1) {
+//      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+//      if (currentCellType == CellType.CORRIDOR) {
+//        if (isLamp(rowIndex, colIndex)) {
+//          return true;
+//        }
+//      }
+//      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+//        break;
+//      }
+//      colIndex++;
+//    }
+//    return false;
   }
 
   @Override

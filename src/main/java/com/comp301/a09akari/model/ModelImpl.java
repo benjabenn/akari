@@ -25,7 +25,9 @@ public class ModelImpl implements Model {
     else if (!lampLocations.contains(new Pair<>(r, c))) {
       lampLocations.add(new Pair<>(r, c));
     }
-    notify(this);
+    for (ModelObserver modelObserver : modelObservers) {
+      modelObserver.update(this);
+    }
   }
 
   @Override
@@ -34,7 +36,9 @@ public class ModelImpl implements Model {
       throw new IllegalArgumentException();
     }
     lampLocations.remove(new Pair<>(r, c));
-    notify(this);
+    for (ModelObserver modelObserver : modelObservers) {
+      modelObserver.update(this);
+    }
   }
 
   @Override
@@ -138,7 +142,9 @@ public class ModelImpl implements Model {
       throw new IndexOutOfBoundsException();
     }
     puzzleIndex = index;
-    notify(this);
+    for (ModelObserver modelObserver : modelObservers) {
+      modelObserver.update(this);
+    }
   }
 
   @Override
@@ -149,11 +155,13 @@ public class ModelImpl implements Model {
   @Override
   public void resetPuzzle() {
     lampLocations.clear();
-    notify(this);
+    for (ModelObserver modelObserver : modelObservers) {
+      modelObserver.update(this);
+    }
   }
 
   @Override
-  public boolean isSolved() { // TODO
+  public boolean isSolved() {
     for (int rowIndex = 0; rowIndex < getActivePuzzle().getHeight(); rowIndex++) {
       for (int colIndex = 0; colIndex < getActivePuzzle().getWidth(); colIndex++) {
         CellType currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);

@@ -37,21 +37,69 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public boolean isLit(int r, int c) { // TODO
+  public boolean isLit(int r, int c) {
     if (getActivePuzzle().getCellType(r, c) != CellType.CORRIDOR) {
       throw new IllegalArgumentException();
     }
-    boolean isLit = false;
     // First while loop will go up from (r, c) checking if lit, then
     // reset rowIndex/colIndex and go down, then left, then right
     int rowIndex = r;
     int colIndex = c;
     CellType currentCellType;
     while (rowIndex > 0) {
-      currentCellType = getActivePuzzle().getCellType(r, c);
+      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+      if (currentCellType == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          return true;
+        }
+      }
+      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+        break;
+      }
       rowIndex--;
     }
-    return isLit;
+    // Now we reset rowIndex to r and go up
+    rowIndex = r + 1;
+    while (rowIndex < getActivePuzzle().getHeight() - 1) {
+      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+      if (currentCellType == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          return true;
+        }
+      }
+      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+        break;
+      }
+      rowIndex++;
+    }
+    rowIndex = r;
+    colIndex = c - 1;
+    while (colIndex > 0) {
+      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+      if (currentCellType == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          return true;
+        }
+      }
+      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+        break;
+      }
+      colIndex--;
+    }
+    colIndex = c + 1;
+    while (colIndex < getActivePuzzle().getWidth() - 1) {
+      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+      if (currentCellType == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          return true;
+        }
+      }
+      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+        break;
+      }
+      colIndex++;
+    }
+    return false;
   }
 
   @Override
@@ -63,7 +111,66 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public boolean isLampIllegal(int r, int c) { // TODO
+  public boolean isLampIllegal(int r, int c) {
+    if (!isLamp(r, c)) {
+      throw new IllegalArgumentException();
+    }
+    int rowIndex = r - 1;
+    int colIndex = c;
+    CellType currentCellType;
+    while (rowIndex > 0) {
+      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+      if (currentCellType == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          return true;
+        }
+      }
+      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+        break;
+      }
+      rowIndex--;
+    }
+    // Now we reset rowIndex to r and go up
+    rowIndex = r + 1;
+    while (rowIndex < getActivePuzzle().getHeight() - 1) {
+      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+      if (currentCellType == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          return true;
+        }
+      }
+      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+        break;
+      }
+      rowIndex++;
+    }
+    rowIndex = r;
+    colIndex = c - 1;
+    while (colIndex > 0) {
+      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+      if (currentCellType == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          return true;
+        }
+      }
+      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+        break;
+      }
+      colIndex--;
+    }
+    colIndex = c + 1;
+    while (colIndex < getActivePuzzle().getWidth() - 1) {
+      currentCellType = getActivePuzzle().getCellType(rowIndex, colIndex);
+      if (currentCellType == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          return true;
+        }
+      }
+      else if (currentCellType == CellType.CLUE || currentCellType == CellType.WALL) {
+        break;
+      }
+      colIndex++;
+    }
     return false;
   }
 
@@ -101,11 +208,39 @@ public class ModelImpl implements Model {
   }
 
   @Override
-  public boolean isClueSatisfied(int r, int c) { // TODO
+  public boolean isClueSatisfied(int r, int c) {
     if (getActivePuzzle().getCellType(r, c) != CellType.CLUE) {
       throw new IllegalArgumentException();
     }
-    return false;
+    int target_num = getActivePuzzle().getClue(r, c);
+    int num_lamps = 0;
+    int rowIndex = r - 1;
+    int colIndex = c;
+    if (rowIndex > 0) {
+      if (isLamp(rowIndex, colIndex)) {
+        num_lamps++;
+      }
+    }
+    rowIndex = r + 1;
+    if (rowIndex < getActivePuzzle().getHeight() - 1) {
+      if (isLamp(rowIndex, colIndex)) {
+        num_lamps++;
+      }
+    }
+    rowIndex = r;
+    colIndex = c - 1;
+    if (colIndex > 0) {
+      if (isLamp(rowIndex, colIndex)) {
+        num_lamps++;
+      }
+    }
+    colIndex = c + 1;
+    if (colIndex < getActivePuzzle().getWidth() - 1) {
+      if (isLamp(rowIndex, colIndex)) {
+        num_lamps++;
+      }
+    }
+    return num_lamps == target_num;
   }
 
   @Override

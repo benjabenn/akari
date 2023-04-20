@@ -25,7 +25,6 @@ public class ModelImpl implements Model {
     else if (!lampLocations.contains(new Pair<>(r, c))) {
       lampLocations.add(new Pair<>(r, c));
     }
-    notify(this);
   }
 
   @Override

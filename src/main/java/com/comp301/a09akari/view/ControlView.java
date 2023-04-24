@@ -13,8 +13,8 @@ import javafx.scene.layout.VBox;
 public class ControlView implements FXComponent {
   private final Model model;
   private final ClassicMvcController controller;
-  private final static int BUTTON_WIDTH = 150;
-  private final static int BUTTON_HEIGHT = 60;
+  private static final int BUTTON_WIDTH = 150;
+  private static final int BUTTON_HEIGHT = 60;
 
   public ControlView(Model model, ClassicMvcController controller) {
     this.model = model;

@@ -17,12 +17,18 @@ public class ClassicMvcControllerImpl implements ClassicMvcController {
 
   @Override
   public void clickNextPuzzle() {
-    model.setActivePuzzleIndex(model.getActivePuzzleIndex() + 1);
+    if (model.getActivePuzzleIndex() < model.getPuzzleLibrarySize() - 1) {
+      model.resetPuzzle();
+      model.setActivePuzzleIndex(model.getActivePuzzleIndex() + 1);
+    }
   }
 
   @Override
   public void clickPrevPuzzle() {
-    model.setActivePuzzleIndex(model.getActivePuzzleIndex() - 1);
+    if (model.getActivePuzzleIndex() > 0) {
+      model.resetPuzzle();
+      model.setActivePuzzleIndex(model.getActivePuzzleIndex() - 1);
+    }
   }
 
   @Override
@@ -32,6 +38,7 @@ public class ClassicMvcControllerImpl implements ClassicMvcController {
     while (randomInt == model.getActivePuzzleIndex() && model.getPuzzleLibrarySize() > 1) {
       randomInt = r.nextInt(model.getPuzzleLibrarySize()); // Unknown if this is working properly
     }
+    model.resetPuzzle();
     model.setActivePuzzleIndex(randomInt);
   }
 

@@ -1,7 +1,7 @@
 package com.comp301.a09akari.model;
 
 public class PuzzleImpl implements Puzzle {
-  private int[][] board;
+  private final int[][] board;
 
   public PuzzleImpl(int[][] board) {
     this.board = board;
@@ -20,7 +20,8 @@ public class PuzzleImpl implements Puzzle {
   @Override
   public CellType getCellType(int r, int c) {
     if (r >= getHeight() || r < 0 || c >= getWidth() || c < 0) {
-      throw new IndexOutOfBoundsException();
+      String msg = r + " " + c;
+      throw new IndexOutOfBoundsException(msg);
     }
     int cellNum = board[r][c];
     if (cellNum >= 0 && cellNum <= 4) {

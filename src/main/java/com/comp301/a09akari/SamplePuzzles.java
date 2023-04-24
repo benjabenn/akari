@@ -71,4 +71,6 @@ public class SamplePuzzles {
     {6, 2, 6, 6, 6, 6},
     {6, 6, 6, 6, 0, 6},
   };
+
+  public static int[][] PUZZLE_06 = {{6, 1, 6, 6}};
 }

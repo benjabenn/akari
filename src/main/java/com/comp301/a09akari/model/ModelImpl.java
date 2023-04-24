@@ -182,27 +182,35 @@ public class ModelImpl implements Model {
     int rowIndex = r - 1;
     int colIndex = c;
     if (rowIndex >= 0) {
-      if (isLamp(rowIndex, colIndex)) {
-        num_lamps++;
+      if (getActivePuzzle().getCellType(rowIndex, colIndex) == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          num_lamps++;
+        }
       }
     }
     rowIndex = r + 1;
     if (rowIndex < getActivePuzzle().getHeight()) {
-      if (isLamp(rowIndex, colIndex)) {
-        num_lamps++;
+      if (getActivePuzzle().getCellType(rowIndex, colIndex) == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          num_lamps++;
+        }
       }
     }
     rowIndex = r;
     colIndex = c - 1;
     if (colIndex >= 0) {
-      if (isLamp(rowIndex, colIndex)) {
-        num_lamps++;
+      if (getActivePuzzle().getCellType(rowIndex, colIndex) == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          num_lamps++;
+        }
       }
     }
     colIndex = c + 1;
     if (colIndex < getActivePuzzle().getWidth()) {
-      if (isLamp(rowIndex, colIndex)) {
-        num_lamps++;
+      if (getActivePuzzle().getCellType(rowIndex, colIndex) == CellType.CORRIDOR) {
+        if (isLamp(rowIndex, colIndex)) {
+          num_lamps++;
+        }
       }
     }
     return num_lamps == target_num;

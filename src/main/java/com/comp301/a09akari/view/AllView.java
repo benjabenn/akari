@@ -3,7 +3,9 @@ package com.comp301.a09akari.view;
 import com.comp301.a09akari.controller.ClassicMvcController;
 import com.comp301.a09akari.model.Model;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 public class AllView implements FXComponent {
@@ -30,11 +32,10 @@ public class AllView implements FXComponent {
   public Parent render() {
     HBox allViews = new HBox();
     allViews.getChildren().addAll(messageView.render(), puzzleView.render(), controlView.render());
-    allViews.setSpacing(100);
-    allViews.setFillHeight(true);
+    allViews.setSpacing(50);
     allViews.setPadding(new Insets(100));
-    allViews.setMinSize(1200, 600);
     allViews.setMaxSize(1200, 600);
+    allViews.setAlignment(Pos.CENTER);
     return allViews;
   }
 }

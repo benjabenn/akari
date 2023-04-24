@@ -2,6 +2,7 @@ package com.comp301.a09akari.view;
 
 import com.comp301.a09akari.controller.ClassicMvcController;
 import com.comp301.a09akari.model.Model;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -25,6 +26,7 @@ public class MessageView implements FXComponent {
     Label solvedTracker = new Label(isSolvedMsg);
 
     messageStack.getChildren().addAll(puzzleTracker, solvedTracker);
+    messageStack.setAlignment(Pos.CENTER);
     return messageStack;
   }
 }

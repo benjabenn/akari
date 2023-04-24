@@ -32,7 +32,8 @@ public class PuzzleView implements FXComponent {
   @Override
   public Parent render() {
     GridPane puzzleGrid = new GridPane();
-    puzzleGrid.setMinSize(600, 600);
+    puzzleGrid.setAlignment(Pos.CENTER);
+    puzzleGrid.setPrefSize(600, 600);
     CornerRadii cornerRadii = new CornerRadii(2);
     Insets insets = new Insets(2);
     for (int rowIndex = 0; rowIndex < model.getActivePuzzle().getHeight(); rowIndex++) {

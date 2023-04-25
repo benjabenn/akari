@@ -21,8 +21,11 @@ import javafx.scene.text.Font;
 public class PuzzleView implements FXComponent {
   private final Model model;
   private final ClassicMvcController controller;
-  static final int NODE_WIDTH = 40;
-  static final int NODE_HEIGHT = 40;
+  private static final int NODE_WIDTH = 40;
+  private static final int NODE_HEIGHT = 40;
+  private static final int GRID_WIDTH = 600;
+  private static final int GRID_HEIGHT = 600;
+
 
   public PuzzleView(Model model, ClassicMvcController controller) {
     this.model = model;
@@ -33,7 +36,9 @@ public class PuzzleView implements FXComponent {
   public Parent render() {
     GridPane puzzleGrid = new GridPane();
     puzzleGrid.setAlignment(Pos.CENTER);
-    puzzleGrid.setPrefSize(600, 600);
+    puzzleGrid.setPrefSize(GRID_WIDTH, GRID_HEIGHT);
+    puzzleGrid.setMinSize(GRID_WIDTH, GRID_HEIGHT);
+    puzzleGrid.setMaxSize(GRID_WIDTH, GRID_HEIGHT);
     CornerRadii cornerRadii = new CornerRadii(2);
     Insets insets = new Insets(2);
     for (int rowIndex = 0; rowIndex < model.getActivePuzzle().getHeight(); rowIndex++) {
@@ -48,13 +53,14 @@ public class PuzzleView implements FXComponent {
           label.setMaxSize(NODE_WIDTH, NODE_HEIGHT);
           puzzleGrid.add(label, colIndex, rowIndex);
         } else if (model.getActivePuzzle().getCellType(rowIndex, colIndex) == CellType.CLUE) {
+          Color clueSatisfiedText = Color.rgb(101, 101, 101);
           Label label =
               new Label(String.valueOf(model.getActivePuzzle().getClue(rowIndex, colIndex)));
           label.setAlignment(Pos.CENTER);
           label.setFont(Font.font(30));
           Background background;
           if (model.isClueSatisfied(rowIndex, colIndex)) {
-            label.setTextFill(Color.DARKGREY);
+            label.setTextFill(clueSatisfiedText);
           } else {
             label.setTextFill(Color.WHITE);
           }
@@ -74,16 +80,21 @@ public class PuzzleView implements FXComponent {
           int finalColIndex = colIndex;
           button.setOnAction((ActionEvent e) -> controller.clickCell(finalRowIndex, finalColIndex));
           if (model.isLamp(rowIndex, colIndex)) {
-            Image lamp = new Image("light-bulb.png");
-            ImageView lampView = new ImageView(lamp);
-            lampView.setPreserveRatio(true);
-            lampView.setFitHeight(30);
-            button.setGraphic(lampView);
             if (model.isLampIllegal(rowIndex, colIndex)) {
+              Image illegalLamp = new Image("illegal-bulb-light-red.png");
+              ImageView illegalLampView = new ImageView(illegalLamp);
+              illegalLampView.setPreserveRatio(true);
+              illegalLampView.setFitHeight(30);
+              button.setGraphic(illegalLampView);
               Background background =
-                  new Background(new BackgroundFill(Color.RED, cornerRadii, insets));
+                  new Background(new BackgroundFill(litYellow, cornerRadii, insets));
               button.setBackground(background);
             } else {
+              Image lamp = new Image("light-bulb.png");
+              ImageView lampView = new ImageView(lamp);
+              lampView.setPreserveRatio(true);
+              lampView.setFitHeight(30);
+              button.setGraphic(lampView);
               Background background =
                   new Background(new BackgroundFill(litYellow, cornerRadii, insets));
               button.setBackground(background);

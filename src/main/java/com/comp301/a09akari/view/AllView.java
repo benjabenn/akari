@@ -5,8 +5,13 @@ import com.comp301.a09akari.model.Model;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+
+import java.awt.*;
 
 public class AllView implements FXComponent {
   private final Model model;
@@ -14,6 +19,8 @@ public class AllView implements FXComponent {
   private final PuzzleView puzzleView;
   private final ControlView controlView;
   private final MessageView messageView;
+  private static final int ALL_WIDTH = 1200;
+  private static final int ALL_HEIGHT = 700;
 
   public AllView(
       Model model,
@@ -32,10 +39,17 @@ public class AllView implements FXComponent {
   public Parent render() {
     HBox allViews = new HBox();
     allViews.getChildren().addAll(messageView.render(), puzzleView.render(), controlView.render());
-    allViews.setSpacing(50);
-    allViews.setPadding(new Insets(100));
+    allViews.setMinSize(1200, 600);
+    allViews.setPrefSize(1200, 600);
     allViews.setMaxSize(1200, 600);
     allViews.setAlignment(Pos.CENTER);
-    return allViews;
+    Label title = new Label("Akari");
+    title.setFont(new Font("Verdana", 70));
+    VBox allViewsTitle = new VBox(title, allViews);
+    allViewsTitle.setAlignment(Pos.CENTER);
+    allViewsTitle.setMinSize(ALL_WIDTH, ALL_HEIGHT);
+    allViewsTitle.setPrefSize(ALL_WIDTH, ALL_HEIGHT);
+    allViewsTitle.setMaxSize(ALL_WIDTH, ALL_HEIGHT);
+    return allViewsTitle;
   }
 }

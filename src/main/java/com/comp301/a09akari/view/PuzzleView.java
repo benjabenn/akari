@@ -26,7 +26,6 @@ public class PuzzleView implements FXComponent {
   private static final int GRID_WIDTH = 600;
   private static final int GRID_HEIGHT = 600;
 
-
   public PuzzleView(Model model, ClassicMvcController controller) {
     this.model = model;
     this.controller = controller;

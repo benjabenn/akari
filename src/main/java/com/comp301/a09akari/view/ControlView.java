@@ -4,10 +4,8 @@ import com.comp301.a09akari.controller.ClassicMvcController;
 import com.comp301.a09akari.model.Model;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
